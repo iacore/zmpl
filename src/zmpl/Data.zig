@@ -157,7 +157,7 @@ pub fn fromJson(self: *Self, json: []const u8) !void {
     self.value = try self.parseJsonValue(parsed.value);
 }
 
-fn parseJsonValue(self: *Self, value: std.json.Value) !Value {
+pub fn parseJsonValue(self: *Self, value: std.json.Value) !Value {
     return switch (value) {
         .object => |*val| blk: {
             var it = val.iterator();
@@ -401,7 +401,7 @@ pub fn getAllocator(self: *Self) std.mem.Allocator {
     }
 }
 
- fn isZigString(comptime T: type) bool {
+fn isZigString(comptime T: type) bool {
     return comptime blk: {
         // Only pointer types can be strings, no optionals
         const info = @typeInfo(T);
